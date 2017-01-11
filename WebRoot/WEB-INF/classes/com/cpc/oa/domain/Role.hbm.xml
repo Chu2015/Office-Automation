@@ -11,6 +11,12 @@
 		</id>
 		<property name="rolename" />
 		<property name="description" />
+		
+		<!--users属性，与User类多对多  -->
+		<set name="users" table="user_role">
+			<key column="roleId"></key>
+			<many-to-many class="User" column="userId"></many-to-many>
+		</set>
 	</class>
 	
 </hibernate-mapping>

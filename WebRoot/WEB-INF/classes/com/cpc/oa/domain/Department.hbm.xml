@@ -11,6 +11,22 @@
 		</id>
 		<property name="departmentname" />
 		<property name="description" />
+		
+		<!--users属性，与User类一对多  -->
+		<set name="users">
+			<key column="departmentId"/>			
+			<one-to-many class="User"/>
+	    </set>
+	    
+	    <!--parent属性，与Department属性多对一  -->
+	    <many-to-one name="parent" class="Department" column="parentId"/>
+	    <!--children属性，与Department属性一对多  -->
+	    <set name="children">
+			<key column="parentId"/>			
+			<one-to-many class="Department"/>
+	    </set>
+	    
+	    
 	</class>
 	
 </hibernate-mapping>

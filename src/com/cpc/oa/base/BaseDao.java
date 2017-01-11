@@ -11,9 +11,10 @@ public interface BaseDao<T> {
 	
 	public void update(T t);	
 	
-	public T findById(long id);
+	public T findById(Long id);
 	
 	public List<T> findByIds(long[] id);
 	
 	public List<T> findAll();
+
 }
