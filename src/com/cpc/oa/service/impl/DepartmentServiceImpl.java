@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Service;
 
@@ -15,17 +16,17 @@ import com.cpc.oa.service.DepartmentService;
 public class DepartmentServiceImpl implements DepartmentService {
 	@Resource
 	private DepartmentDao daoimpl;
-
 	
 	@Resource
 	private SessionFactory sessionfactory;
+	
 	@Override
 	public List<Department> list() {
 		return daoimpl.findAll();
 	}
 
 	@Override
-	public void delete(long id) {
+	public void delete(Long id) {
 		daoimpl.delete(id);
 	}
 
@@ -48,15 +49,29 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	@Override
-	public Department getById(long id) {
+	public Department getById(Long id) {
 		return daoimpl.findById(id);	
 	}
+
+	@Override
+	public List<Department> findTopList() {
+		Session session = sessionfactory.getCurrentSession();
+		List<Department> list=session.createQuery("from Department d where d.parent is null").list();
+		return list;
+	}
+
+	@Override
+	public List<Department> findChildren(Long parentId) {
+		Session session = sessionfactory.getCurrentSession();
+		List<Department> list = session.createQuery("from Department d where d.parent.id=?").setParameter(0, parentId).list();
+		return list;
+	}
 	
-	public SessionFactory getSessionfactory() {
+/*	public SessionFactory getSessionfactory() {
 		return sessionfactory;
 	}
 
 	public void setSessionfactory(SessionFactory sessionfactory) {
 		this.sessionfactory = sessionfactory;
-	}
+	}*/
 }

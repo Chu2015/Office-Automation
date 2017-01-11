@@ -1,4 +1,4 @@
-c<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
@@ -41,12 +41,12 @@ c<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
         
         <s:iterator value="#list">
 			<tr class="TableDetail1 template">
-				<td>${departmentname}&nbsp;</td>
-				<td>${parent.name}&nbsp;</td>
+				<td><s:a action="department_list?parentId=%{id}" >${departmentname}</s:a>&nbsp;</td>
+				<td>${parent.departmentname}&nbsp;</td>
 				<td>${description}&nbsp;</td>
 				<td>
-					<s:a href="department_delete?id=%{id}" onclick="return window.confirm('这将删除所有的下级部门，您确定要删除吗？')">删除</s:a>
-					<s:a href="department_editUI?id=%{id}">修改</s:a>
+					<s:a action="department_delete?id=%{id}&parentId=%{parent.id}" onclick="return window.confirm('这将删除所有的下级部门，您确定要删除吗？')">删除</s:a>
+					<s:a action="department_editUI?id=%{id}&parentId=%{parent.id}">修改</s:a>
 				</td>
 			</tr>
 		</s:iterator>	
@@ -57,7 +57,8 @@ c<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
     <!-- 其他功能超链接 -->
     <div id="TableTail">
         <div id="TableTail_inside">
-            <s:a action="department_addUI"><img src="${pageContext.request.contextPath}/style/images/createNew.png" /></s:a>
+            <s:a action="department_addUI?parentId=%{parentId}"><img src="${pageContext.request.contextPath}/style/images/createNew.png" /></s:a>
+       		<s:a action="department_list?parentId=%{#list[0].parent.parent.id} "><img src="${pageContext.request.contextPath}/style/blue/images/button/ReturnToPrevLevel.png" /></s:a>
         </div>
     </div>
 </div>

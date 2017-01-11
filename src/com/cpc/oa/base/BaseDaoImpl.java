@@ -44,7 +44,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T>{
 
 	
 	@Override
-	public void delete(long id) {
+	public void delete(Long id) {
 		Object object = findById(id);
 		if(object!=null){
 			getSession().delete(object);
@@ -66,7 +66,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T>{
 	}
 
 	@Override
-	public List<T> findByIds(long[] ids) {
+	public List<T> findByIds(Long[] ids) {
 		return getSession().createQuery("from "+clazz.getSimpleName()+" where id in (:ids)").setParameter("ids", ids).list();
 	}
 

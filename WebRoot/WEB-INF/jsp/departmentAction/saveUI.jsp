@@ -21,11 +21,10 @@
         <div id="Title_End"></div>
     </div>
 </div>
-
 <!--显示表单内容-->
 <div id=MainArea>
 
-    <s:form action="department_%{id == 0 ? 'add' : 'edit'}">
+    <s:form action="department_%{id == null ? 'add' : 'edit'}">
         <s:hidden name="id"></s:hidden>
         
         <div class="ItemBlock_Title1"><!-- 信息说明<DIV CLASS="ItemBlock_Title1">
@@ -33,21 +32,17 @@
         </div>
         
         <!-- 表单内容显示 -->
-        <div class="ItemBlockBorder">
+         <div class="ItemBlockBorder">
             <div class="ItemBlock">
                 <table cellpadding="0" cellspacing="0" class="mainForm">
-                    <tr><td width="100">上级部门</td>
-                        <td><select name="parentId" class="SelectStyle">
-                                <option value="">请选择部门</option>
-                                <option value="7">┠总经理室</option>
-                                <option value="1">┠市场部</option>
-                                <option value="2">　┠咨询部</option>
-                                <option value="3">　┠招生部</option>
-                                <option value="4">┠教学部</option>
-                                <option value="5">┠后勤部</option>
-                            </select>
+                     <tr><td width="100">上级部门</td>
+                        <td>
+                   			<s:select name="parentId" cssClass="SelectStyle"
+                        		list="#departmentList" listKey="id" listValue="departmentname"
+                        		headerKey="" headerValue="==请选择部门=="             
+                        	/>
                         </td>
-                    </tr>
+                    </tr> 
                     <tr><td>部门名称</td>
                         <td><s:textfield  name="departmentname" cssClass="InputStyle"/> *</td>
                     </tr>
@@ -56,7 +51,7 @@
                     </tr>
                 </table>
             </div>
-        </div>
+        </div> 
         
         <!-- 表单操作 -->
         <div id="InputDetailBar">

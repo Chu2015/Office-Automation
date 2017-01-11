@@ -13,12 +13,16 @@ public interface DepartmentService {
 
 	List<Department> list();
 
-	void delete(long id);
+	void delete(Long id);
 
 	void add(Department department);
 
 	void update(Department department);
 
-	Department getById(long id);
+	Department getById(Long id);
+
+	List<Department> findTopList();
+
+	List<Department> findChildren(Long parentId);
 
 }
