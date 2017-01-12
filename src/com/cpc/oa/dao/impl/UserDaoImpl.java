@@ -1,10 +1,11 @@
 package com.cpc.oa.dao.impl;
 
-import com.cpc.oa.base.BaseDaoImpl;
+import com.cpc.oa.base.DaoSupportImpl;
 import com.cpc.oa.dao.UserDao;
 import com.cpc.oa.domain.User;
 
-public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao{
+@Deprecated
+public class UserDaoImpl extends DaoSupportImpl<User> implements UserDao{
 
 	@Override
 	public void findByPartName(String name) {

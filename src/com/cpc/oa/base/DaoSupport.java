@@ -3,7 +3,7 @@ package com.cpc.oa.base;
 import java.util.List;
 
 
-public interface BaseDao<T> {
+public interface DaoSupport<T> {
 	
 	public void save(T t);
 	

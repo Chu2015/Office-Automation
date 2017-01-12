@@ -34,6 +34,7 @@ public class DepartmentAction extends BaseAction<Department>{
 	}
 	
 	public String delete(){
+		System.out.println(model.getId()+"!!!!!!!!!!!!!!!!!!!!!");
 		departmentservice.delete(model.getId());
 		System.out.println(parentId);
 		return "toList";
@@ -49,17 +50,17 @@ public class DepartmentAction extends BaseAction<Department>{
 	}
 	
 	public String add(){
-		Department parent= departmentservice.getById(parentId);
+		Department parent= departmentservice.findById(parentId);
 		model.setParent(parent);
-		departmentservice.add(model);
+		departmentservice.save(model);
 		return "toList";
 	}
 	
 	public String editUI(){
-		List<Department> list = departmentservice.list();
+		List<Department> list = departmentservice.findAll();
 		ActionContext.getContext().put("departmentList", list);
 		
-		Department d = departmentservice.getById(model.getId());
+		Department d = departmentservice.findById(model.getId());
 		ActionContext.getContext().getValueStack().push(d);
 		if(d.getParent() != null){
 			parentId = d.getParent().getId();
@@ -68,7 +69,7 @@ public class DepartmentAction extends BaseAction<Department>{
 	}
 	
 	public String edit(){
-		Department parent = departmentservice.getById(parentId);
+		Department parent = departmentservice.findById(parentId);
 		model.setParent(parent);
 		departmentservice.update(model);
 		return "toList";

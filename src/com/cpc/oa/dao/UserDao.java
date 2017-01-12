@@ -1,9 +1,10 @@
 package com.cpc.oa.dao;
 
-import com.cpc.oa.base.BaseDao;
+import com.cpc.oa.base.DaoSupport; 
 import com.cpc.oa.domain.User;
 
-public interface UserDao extends BaseDao<User> {
+@Deprecated
+public interface UserDao extends DaoSupport<User> {
 
 	public void findByPartName(String name);
 }

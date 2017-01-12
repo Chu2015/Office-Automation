@@ -24,7 +24,7 @@ import com.opensymphony.xwork2.ModelDriven;
 public class RoleAction extends BaseAction<Role>{
 
 	public String list(){
-		ActionContext.getContext().put("list", roleService.list());
+		ActionContext.getContext().put("list", roleService.findAll());
 		return "list";
 	}
 	
@@ -44,13 +44,13 @@ public class RoleAction extends BaseAction<Role>{
 	}
 	
 	public String editUI(){
-		Role role = roleService.getById(this.model.getId());
+		Role role = roleService.findById(this.model.getId());
 		ActionContext.getContext().getValueStack().push(role);
 		return "saveUI";
 	}
 	
 	public String edit(){
-		roleService.edit(model);
+		roleService.update(model);
 		return "toList";
 	}
 	

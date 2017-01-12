@@ -9,51 +9,52 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cpc.oa.base.DaoSupportImpl;
 import com.cpc.oa.dao.DepartmentDao;
 import com.cpc.oa.domain.Department;
 import com.cpc.oa.service.DepartmentService;
 
 @Service
 @Transactional
-public class DepartmentServiceImpl implements DepartmentService {
-	@Resource
-	private DepartmentDao daoimpl;
+public class DepartmentServiceImpl extends DaoSupportImpl<Department> implements DepartmentService {
+//	@Resource
+//	private DepartmentDao daoimpl;
 	
 	@Resource
 	private SessionFactory sessionfactory;
 	
-	@Override
-	public List<Department> list() {
-		return daoimpl.findAll();
-	}
+//	@Override
+//	public List<Department> list() {
+//		return daoimpl.findAll();
+//	}
+//
+//	@Override
+//	public void delete(Long id) {
+//		daoimpl.delete(id);
+//	}
+//
+//	@Override
+//	public void add(Department department) {
+//		daoimpl.save(department);
+//	}
 
-	@Override
-	public void delete(Long id) {
-		daoimpl.delete(id);
-	}
+//	@Override
+//	public void update(Department department) {
+//		daoimpl.update(department);
+//	}
+//
+//	public DepartmentDao getDaoimpl() {
+//		return daoimpl;
+//	}
+//
+//	public void setDaoimpl(DepartmentDao daoimpl) {
+//		this.daoimpl = daoimpl;
+//	}
 
-	@Override
-	public void add(Department department) {
-		daoimpl.save(department);
-	}
-
-	@Override
-	public void update(Department department) {
-		daoimpl.update(department);
-	}
-
-	public DepartmentDao getDaoimpl() {
-		return daoimpl;
-	}
-
-	public void setDaoimpl(DepartmentDao daoimpl) {
-		this.daoimpl = daoimpl;
-	}
-
-	@Override
-	public Department getById(Long id) {
-		return daoimpl.findById(id);	
-	}
+//	@Override
+//	public Department getById(Long id) {
+//		return daoimpl.findById(id);	
+//	}
 
 	@Override
 	public List<Department> findTopList() {

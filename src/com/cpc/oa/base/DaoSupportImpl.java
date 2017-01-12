@@ -9,9 +9,11 @@ import javax.persistence.Query;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 @SuppressWarnings("unchecked")
-public abstract class BaseDaoImpl<T> implements BaseDao<T>{
+public abstract class DaoSupportImpl<T> implements DaoSupport<T>{
 	
 	private SessionFactory sessionFactory;
 	public SessionFactory getSessionFactory() {
@@ -28,7 +30,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T>{
 	 * 使用反射得到子类的真实类型
 	 * @return
 	 */
-	public BaseDaoImpl(){
+	public DaoSupportImpl(){
 		 ParameterizedType type= (ParameterizedType) this.getClass().getGenericSuperclass();
 		 this.clazz = (Class<T>) type.getActualTypeArguments()[0];
 	}
@@ -45,6 +47,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T>{
 	
 	@Override
 	public void delete(Long id) {
+		System.out.println(id+"??????????????????????????");
 		Object object = findById(id);
 		if(object!=null){
 			getSession().delete(object);

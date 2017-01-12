@@ -11,7 +11,7 @@ import com.opensymphony.xwork2.ModelDriven;
 
 public abstract class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
 	/**
-	 * 传递role属性
+	 * 传递model属性
 	 * @return
 	 */
 	protected T model;
