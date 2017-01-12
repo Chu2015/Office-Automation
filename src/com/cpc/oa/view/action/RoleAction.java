@@ -10,6 +10,8 @@ import org.apache.struts2.interceptor.RequestAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.cpc.oa.base.BaseAction;
+import com.cpc.oa.domain.Department;
 import com.cpc.oa.domain.Role;
 import com.cpc.oa.service.RoleService;
 import com.cpc.oa.service.impl.RoleServiceImpl;
@@ -19,18 +21,15 @@ import com.opensymphony.xwork2.ModelDriven;
 
 @Controller
 @Scope("prototype")
-public class RoleAction extends ActionSupport implements ModelDriven<Role>{
+public class RoleAction extends BaseAction<Role>{
 
-	private RoleService  roleService;
-	private Role role2 = new Role();
-	
 	public String list(){
 		ActionContext.getContext().put("list", roleService.list());
 		return "list";
 	}
 	
 	public String delete(){
-		roleService.delete(role2.getId());
+		roleService.delete(model.getId());
 		System.out.println(ServletActionContext.getRequest().getRequestURL());
 		return "toList";
 	}
@@ -40,52 +39,19 @@ public class RoleAction extends ActionSupport implements ModelDriven<Role>{
 	}
 	
 	public String add(){
-		roleService.save(role2);
+		roleService.save(model);
 		return "toList";
 	}
 	
 	public String editUI(){
-		Role role = roleService.getById(this.role2.getId());
+		Role role = roleService.getById(this.model.getId());
 		ActionContext.getContext().getValueStack().push(role);
 		return "saveUI";
 	}
 	
 	public String edit(){
-		roleService.edit(role2);
+		roleService.edit(model);
 		return "toList";
 	}
-
-	/**
-	 * 传递role属性
-	 * @return
-	 */
-	public Role getRole() {
-		return role2;
-	}
-
-	public void setRole(Role role) {
-		this.role2 = role;
-	}
-
-	@Override
-	public Role getModel() {
-		return role2;
-	}
-
-	
-	/**
-	 * 从spring中得到service对象
-	 * @return
-	 */
-	public RoleService getRoleService() {
-		return roleService;
-	}
-
-	@Resource
-	public void setRoleService(RoleService roleService) {
-		this.roleService = roleService;
-	}
-
-
 	
 }

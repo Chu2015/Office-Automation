@@ -7,12 +7,14 @@ import javax.annotation.Resource;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cpc.oa.dao.DepartmentDao;
 import com.cpc.oa.domain.Department;
 import com.cpc.oa.service.DepartmentService;
 
 @Service
+@Transactional
 public class DepartmentServiceImpl implements DepartmentService {
 	@Resource
 	private DepartmentDao daoimpl;

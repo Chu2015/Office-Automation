@@ -21,7 +21,7 @@
 	    <!--parent属性，与Department属性多对一  -->
 	    <many-to-one name="parent" class="Department" column="parentId"/>
 	    <!--children属性，与Department属性一对多  -->
-	    <set name="children" cascade="delete">
+	    <set name="children" cascade="delete" order-by="id ASC">
 			<key column="parentId"/>			
 			<one-to-many class="Department" />
 	    </set>
