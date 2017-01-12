@@ -2,6 +2,8 @@ package com.cpc.oa.base;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -47,7 +49,6 @@ public abstract class DaoSupportImpl<T> implements DaoSupport<T>{
 	
 	@Override
 	public void delete(Long id) {
-		System.out.println(id+"??????????????????????????");
 		Object object = findById(id);
 		if(object!=null){
 			getSession().delete(object);
@@ -70,9 +71,15 @@ public abstract class DaoSupportImpl<T> implements DaoSupport<T>{
 
 	@Override
 	public List<T> findByIds(Long[] ids) {
-		return getSession().createQuery("from "+clazz.getSimpleName()+" where id in (:ids)").setParameter("ids", ids).list();
+		if(ids==null || ids.length==0){
+			return Collections.EMPTY_LIST;
+		}else{
+			return getSession().createQuery(
+					"from "+clazz.getSimpleName()+" where id in (:ids)")
+					.setParameterList("ids", ids)
+					.list();
+		}
 	}
-
 	@Override
 	public List<T> findAll() {
 		return getSession().createQuery("from "+clazz.getSimpleName()).list();

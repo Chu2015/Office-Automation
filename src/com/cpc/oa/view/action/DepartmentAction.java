@@ -34,7 +34,6 @@ public class DepartmentAction extends BaseAction<Department>{
 	}
 	
 	public String delete(){
-		System.out.println(model.getId()+"!!!!!!!!!!!!!!!!!!!!!");
 		departmentservice.delete(model.getId());
 		System.out.println(parentId);
 		return "toList";

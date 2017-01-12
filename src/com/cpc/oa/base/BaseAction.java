@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import com.cpc.oa.service.DepartmentService;
 import com.cpc.oa.service.RoleService;
+import com.cpc.oa.service.UserService;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -51,4 +52,14 @@ public abstract class BaseAction<T> extends ActionSupport implements ModelDriven
 		this.roleService = roleService;
 	}
 	
+	@Resource
+	protected UserService  userService;
+
+	public UserService getUserService() {
+		return userService;
+	}
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
 }
