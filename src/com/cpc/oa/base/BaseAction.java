@@ -5,6 +5,7 @@ import java.lang.reflect.ParameterizedType;
 import javax.annotation.Resource;
 
 import com.cpc.oa.service.DepartmentService;
+import com.cpc.oa.service.PrivilegeService;
 import com.cpc.oa.service.RoleService;
 import com.cpc.oa.service.UserService;
 import com.opensymphony.xwork2.ActionSupport;
@@ -61,5 +62,18 @@ public abstract class BaseAction<T> extends ActionSupport implements ModelDriven
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
+
+	@Resource
+	protected PrivilegeService privilegeService;
+
+	public PrivilegeService getPrivilegeService() {
+		return privilegeService;
+	}
+	public void setPrivilegeService(PrivilegeService privilegeService) {
+		this.privilegeService = privilegeService;
+	}
+
+
+
 
 }

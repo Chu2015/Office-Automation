@@ -23,6 +23,7 @@
    			<result name="list">/WEB-INF/jsp/roleAction/list.jsp</result>
    			<result name="saveUI">/WEB-INF/jsp/roleAction/saveUI.jsp</result>
    			<result name="toList" type="redirectAction">role_list</result>
+   			<result name="setPrivilegeUI">/WEB-INF/jsp/roleAction/setPrivilegeUI.jsp</result>
    		</action>  
    		
    		<action name="department_*" class="departmentAction" method="{1}">
@@ -34,7 +35,7 @@
    		<action name="user_*" class="userAction" method="{1}">
    			<result name="list">/WEB-INF/jsp/userAction/list.jsp</result>
    			<result name="saveUI">/WEB-INF/jsp/userAction/saveUI.jsp</result>
-   			<result name="toList" type="redirectAction">user_list?</result>
+   			<result name="toList" type="redirectAction">user_list</result>
    		</action> 
     </package>
 
