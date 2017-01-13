@@ -10,6 +10,15 @@ import java.util.Set;
  */
 public class Privilege {
 
+	public Privilege(String name, String url, Privilege parent) {
+		super();
+		this.name = name;
+		this.url = url;
+		this.parent = parent;
+	}
+	public Privilege(){
+		
+	}
 	private Long id;
 	private String name;
 	private String url;
