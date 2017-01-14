@@ -18,6 +18,25 @@ public class User {
 	private String email; // 电子邮件
 	private String description; // 说明
 	
+	public boolean hasPrivilegeByName(String name){
+		if(isadmin()){
+			return true;
+		}else{
+			for(Role role : roles){
+				for(Privilege p: role.getPrivileges()){
+					if(p.getName().equals(name)){
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+	}
+	
+	public boolean isadmin(){
+		return "admin".equals(loginName);
+	}
+	
 	public Set<Role> getRoles() {
 		return roles;
 	}
@@ -79,7 +98,5 @@ public class User {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-
 	
 }

@@ -21,7 +21,7 @@
 		<many-to-one name="department" class="Department" column="departmentId"/>
 		
 		<!--roles属性，与Role类多对多  -->
-		<set name="roles" table="user_role">
+		<set name="roles" table="user_role" lazy="false">
 			<key column="userId"></key>
 			<many-to-many class="Role" column="roleId"></many-to-many>
 		</set>
