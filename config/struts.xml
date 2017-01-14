@@ -41,6 +41,10 @@
    			<result name="logout">/WEB-INF/jsp/userAction/logout.jsp</result>
    			<result name="index">/index.jsp</result>
    		</action> 
+   		
+   		<action name="home_*" class="homeAction" method="{1}">
+   			<result name="{1}">/WEB-INF/jsp/homeAction/{1}.jsp</result>
+   		</action> 
     </package>
 
     <!-- Add packages here -->
