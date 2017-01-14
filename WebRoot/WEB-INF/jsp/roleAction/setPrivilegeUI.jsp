@@ -51,14 +51,49 @@
 							<!-- 显示权限树 -->
 							<td>
 
-<s:checkboxlist name="privilegeIds" list="#privilegeList" listKey="id" listValue="name"></s:checkboxlist>
+<%-- <s:checkboxlist name="privilegeIds" list="#privilegeList" listKey="id" listValue="name"></s:checkboxlist>
+ --%>
+ 
+<%-- <s:iterator value="#privilegeList">
+	<input type="checkbox" name="privilegeIds" id="cb_${id }" value="${id }"
+	<s:property value="id in privilegeIds ? 'checked':''"/>
+	>
+	<label for="cb_${id }">${name }</label>
+	<br/>
+</s:iterator> --%>
 
+<!--  -->
+<ul id="tree">
+<s:iterator value="#application.topPrivilegeList">
+	<li><input type="checkbox" name="privilegeIds" id="cb_${id }" value="${id }" <s:property value="id in privilegeIds ? 'checked':''"/>>
+		<label for="cb_${id }">${name }</label>
+		<ul>
+		<s:iterator value="children">
+			<li><input type="checkbox" name="privilegeIds" id="cb_${id }" value="${id }" <s:property value="id in privilegeIds ? 'checked':''"/>>
+				<label for="cb_${id }">${name }</label>
+			<ul>
+			<s:iterator value="children">
+				<li><input type="checkbox" name="privilegeIds" id="cb_${id }" value="${id }" <s:property value="id in privilegeIds ? 'checked':''"/>>
+					<label for="cb_${id }">${name }</label>
+				</li>	
+			</s:iterator>
+			</ul>		
+			</li>	
+		</s:iterator>
+		</ul>
+	</li>
+</s:iterator>
+</ul>
 							</td>
 						</tr>
 					</tbody>
                 </table>
             </div>
         </div>
+        
+        <script language="javascript">
+        	$("#tree").treeview();
+        </script>
         
         <!-- 表单操作 -->
         <div id="InputDetailBar">
