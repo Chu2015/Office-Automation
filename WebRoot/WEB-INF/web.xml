@@ -17,6 +17,10 @@
 		<param-value>classpath:beans.xml</param-value>
 	</context-param>
 	
+	<listener>
+		<listener-class>com.cpc.oa.util.InitListener</listener-class>
+	</listener>
+	
 	<!--解决懒加载问题 -->
   	<filter>
 		<filter-name>openSessionInView</filter-name>
