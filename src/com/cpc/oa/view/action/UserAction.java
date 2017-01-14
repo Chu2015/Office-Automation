@@ -128,4 +128,25 @@ public class UserAction extends BaseAction<User>{
 		return "toList";
 	}
 
+	public String loginUI(){
+		return "loginUI";
+	}
+	public String login(){
+		User user = userService.findByLoginNameAndPassword(model.getLoginName(),model.getPassword());
+		if(user==null){
+			this.addFieldError("error", "登录名或密码错误！");
+			return "loginUI"; 
+		}else{
+			ActionContext.getContext().getSession().put("user", user);
+			return "toIndex";
+		}
+		
+	}
+	public String logout(){
+		ActionContext.getContext().getSession().remove("user");
+		return "logout";
+	}
+	public String index(){
+		return "index";
+	}
 }
