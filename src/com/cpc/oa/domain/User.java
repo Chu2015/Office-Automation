@@ -33,6 +33,21 @@ public class User {
 		}
 	}
 	
+	public boolean hasPrivilegeByUrl(String url){
+		if(isadmin()){
+			return true;
+		}else{
+			for(Role role : roles){
+				for(Privilege p: role.getPrivileges()){
+					if(url.equals(p.getUrl())){
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+	}
+	
 	public boolean isadmin(){
 		return "admin".equals(loginName);
 	}
