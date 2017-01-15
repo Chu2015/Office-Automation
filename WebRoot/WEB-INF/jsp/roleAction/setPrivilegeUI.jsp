@@ -6,6 +6,20 @@
 	<script language="javascript" src="${pageContext.request.contextPath}/script/jquery_treeview/jquery.treeview.js"></script>
 	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/style/blue/file.css" />
 	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/script/jquery_treeview/jquery.treeview.css" />
+	<script type="text/javascript">
+		$(function(){
+			
+			$("[name=privilegeIds]").click(function(){
+				// 当选中或取消一个权限时，也同时选中或取消所有的下级权限
+				$(this).siblings("ul").find("input").attr("checked",this.checked);
+				// 当选中一个权限时，也要选中所有的直接上级权限
+				if(this.checked==true){
+					$(this).parents("li").children("input").attr("checked",this.checked);
+				}
+			})
+		})
+	</script>
+
 </head>
 <body>
 
