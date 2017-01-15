@@ -20,4 +20,10 @@ public class PrivilegeServiceImpl extends DaoSupportImpl<Privilege> implements P
 		return privileges;
 	}
 
+	@Override
+	public List<Privilege> findAllWithUrl() {
+		List<Privilege> privileges = getSession().createQuery("select distinct p.url from Privilege p where p.url is not null").list();											
+		return privileges;
+	}
+
 }

@@ -9,4 +9,6 @@ public interface PrivilegeService extends DaoSupport<Privilege> {
 
 	List<Privilege> findTopList();
 
+	List<Privilege> findAllWithUrl();
+
 }

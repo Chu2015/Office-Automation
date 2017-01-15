@@ -1,10 +1,13 @@
 package com.cpc.oa.domain;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.opensymphony.xwork2.ActionContext;
 
-public class User {
+
+public class User implements java.io.Serializable{
 	
 	private Long id;
 	private Set<Role> roles = new HashSet<Role>();
@@ -36,6 +39,20 @@ public class User {
 	public boolean hasPrivilegeByUrl(String url){
 		if(isadmin()){
 			return true;
+		}
+		Collection<String> allUrls = (Collection<String>) ActionContext.getContext().getApplication().get("allPrivilegeList");
+		
+		url ="/" + url;
+		int pos = url.indexOf("?");
+		if(pos>-1){
+			url = url.substring(0,pos);
+		}
+		if(url.endsWith("UI")){
+			url = url.substring(0,url.length()-2);
+		}
+		
+		if(!allUrls.contains(url)){
+			return true;
 		}else{
 			for(Role role : roles){
 				for(Privilege p: role.getPrivileges()){
@@ -44,7 +61,7 @@ public class User {
 					}
 				}
 			}
-			return false;
+		return false;
 		}
 	}
 	

@@ -24,6 +24,9 @@ public class InitListener implements ServletContextListener{
 		//得到显示所需的数据，放入context域中
 		List<Privilege> topPrivilegeList = privilegeservice.findTopList();
 		sce.getServletContext().setAttribute("topPrivilegeList", topPrivilegeList);
+		
+		List<Privilege> allPrivilegeList = privilegeservice.findAllWithUrl();
+		sce.getServletContext().setAttribute("allPrivilegeList", allPrivilegeList);
 		System.out.println("------------> 已准备数据 <------------");
 	}
 

@@ -61,16 +61,6 @@ public class AnchorTag extends AbstractClosingTag {
 	@Override
 	public int doEndTag() throws JspException {
 		User user = (User) pageContext.getSession().getAttribute("user");
-	
-		action ="/" + action;
-		
-		int pos = action.indexOf("?");
-		if(pos>-1){
-			action = action.substring(0,pos);
-		}
-		if(action.endsWith("UI")){
-			action = action.substring(0,action.length()-2);
-		}
 		
 		if(user.hasPrivilegeByUrl(action)){
 			return super.doEndTag();

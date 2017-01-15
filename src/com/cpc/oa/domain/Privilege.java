@@ -8,7 +8,7 @@ import java.util.Set;
  * @author cpc
  *
  */
-public class Privilege {
+public class Privilege implements java.io.Serializable{
 
 	public Privilege(String name, String url, Privilege parent) {
 		super();

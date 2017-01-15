@@ -95,7 +95,10 @@ public class UserAction extends BaseAction<User>{
 		/*
 		 * 回显这个User原来的部门和岗位
 		 */
-		departmentId = user.getDepartment().getId();
+		Department d= user.getDepartment();
+		if(d!=null){
+			departmentId = user.getDepartment().getId();
+		}
 		roleIds = new Long[user.getRoles().size()];
 		int index=0;
 		for(Role role :user.getRoles()){

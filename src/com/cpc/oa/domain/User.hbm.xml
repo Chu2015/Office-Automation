@@ -18,7 +18,7 @@
 		<property name="description" />
 		
 		<!--department属性,与Department类多对一  -->
-		<many-to-one name="department" class="Department" column="departmentId"/>
+		<many-to-one name="department" class="Department" column="departmentId" lazy="false"/>
 		
 		<!--roles属性，与Role类多对多  -->
 		<set name="roles" table="user_role" lazy="false">

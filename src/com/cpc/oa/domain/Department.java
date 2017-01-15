@@ -3,7 +3,7 @@ package com.cpc.oa.domain;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Department {
+public class Department implements java.io.Serializable {
 	private Long id;
 	private String departmentname;
 	private String description;
