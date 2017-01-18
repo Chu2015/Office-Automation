@@ -5,6 +5,7 @@ import java.lang.reflect.ParameterizedType;
 import javax.annotation.Resource;
 
 import com.cpc.oa.service.DepartmentService;
+import com.cpc.oa.service.ForumService;
 import com.cpc.oa.service.PrivilegeService;
 import com.cpc.oa.service.RoleService;
 import com.cpc.oa.service.UserService;
@@ -73,7 +74,15 @@ public abstract class BaseAction<T> extends ActionSupport implements ModelDriven
 		this.privilegeService = privilegeService;
 	}
 
+	@Resource
+	protected ForumService forumService;
 
+	public ForumService getForumService() {
+		return forumService;
+	}
+	public void setForumService(ForumService forumService) {
+		this.forumService = forumService;
+	}
 
 
 }

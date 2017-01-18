@@ -70,8 +70,8 @@ public class Installer {
 		 * 网上交流模块的权限
 		 */
 		menu = new Privilege("网上交流", null, null);
-		menu1 = new Privilege("论坛管理", "/forumManage_list", menu);
-		menu2 = new Privilege("论坛", "/forum_list", menu);
+		menu1 = new Privilege("论坛管理", "/forum_list", menu);
+		menu2 = new Privilege("论坛", "/forumUser_list", menu);
 		session.save(menu);
 		session.save(menu1);
 		session.save(menu2);

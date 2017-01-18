@@ -62,6 +62,12 @@
    		<action name="home_*" class="homeAction" method="{1}">
    			<result name="{1}">/WEB-INF/jsp/homeAction/{1}.jsp</result>
    		</action> 
+   		
+   		<action name="forum_*" class="forumAction" method="{1}">
+   			<result name="list">/WEB-INF/jsp/forumAction/list.jsp</result>
+   			<result name="saveUI">/WEB-INF/jsp/forumAction/saveUI.jsp</result>
+   			<result name="toList" type="redirectAction">forum_list</result>
+   		</action> 
     </package>
 
     <!-- Add packages here -->
