@@ -32,6 +32,9 @@
         <mapping resource="com/cpc/oa/domain/Department.hbm.xml" />
 		<mapping resource="com/cpc/oa/domain/Privilege.hbm.xml" />
 		<mapping resource="com/cpc/oa/domain/Forum.hbm.xml" />
+		<mapping resource="com/cpc/oa/domain/Reply.hbm.xml" />
+		<mapping resource="com/cpc/oa/domain/Topic.hbm.xml" />
+
     </session-factory>
     
 </hibernate-configuration>
