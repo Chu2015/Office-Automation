@@ -4,11 +4,15 @@ import java.lang.reflect.ParameterizedType;
 
 import javax.annotation.Resource;
 
+import com.cpc.oa.domain.User;
 import com.cpc.oa.service.DepartmentService;
 import com.cpc.oa.service.ForumService;
 import com.cpc.oa.service.PrivilegeService;
+import com.cpc.oa.service.ReplyService;
 import com.cpc.oa.service.RoleService;
+import com.cpc.oa.service.TopicService;
 import com.cpc.oa.service.UserService;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -84,5 +88,28 @@ public abstract class BaseAction<T> extends ActionSupport implements ModelDriven
 		this.forumService = forumService;
 	}
 
+	@Resource
+	protected TopicService topicService;
+
+	public TopicService getTopicService() {
+		return topicService;
+	}
+	public void setTopicService(TopicService topicService) {
+		this.topicService = topicService;
+	}
+
+	@Resource
+	protected ReplyService replyService;
+
+	public ReplyService getReplyService() {
+		return replyService;
+	}
+	public void setReplyService(ReplyService replyService) {
+		this.replyService = replyService;
+	}
+	
+	public User getCurrentUser() {
+		return (User)ActionContext.getContext().getSession().get("user");
+	}
 
 }

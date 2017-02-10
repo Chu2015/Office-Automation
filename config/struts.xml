@@ -68,6 +68,21 @@
    			<result name="saveUI">/WEB-INF/jsp/forumAction/saveUI.jsp</result>
    			<result name="toList" type="redirectAction">forum_list</result>
    		</action> 
+   		
+   		<action name="forumUser_*" class="forumUserAction" method="{1}">
+   			<result name="list">/WEB-INF/jsp/forumUserAction/list.jsp</result>
+   			<result name="show">/WEB-INF/jsp/forumUserAction/show.jsp</result>
+   		</action> 
+   		
+   		<action name="topic_*" class="topicAction" method="{1}">
+   			<result name="addUI">/WEB-INF/jsp/topicAction/addUI.jsp</result>
+   			<result name="show">/WEB-INF/jsp/topicAction/show.jsp</result>
+   			<result name="toShow" type="redirectAction">topic_show?id=${id}</result>
+   		</action>
+   		<action name="reply_*" class="replyAction" method="{1}">
+   			<result name="addUI">/WEB-INF/jsp/replyAction/addUI.jsp</result>
+   			<result name="toTopicShow" type="redirectAction">topic_show?id=${topicId}</result>
+   		</action> 
     </package>
 
     <!-- Add packages here -->
