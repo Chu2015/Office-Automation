@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import com.cpc.oa.base.BaseAction;
 import com.cpc.oa.domain.Forum;
+import com.cpc.oa.domain.PageBean;
 import com.cpc.oa.domain.Reply;
 import com.cpc.oa.domain.Topic;
 import com.cpc.oa.domain.User;
@@ -19,7 +20,7 @@ import com.opensymphony.xwork2.ActionContext;
 public class TopicAction extends BaseAction<Topic>{
 
 	private Long forumId;
-	
+
 	public Long getForumId() {
 		return forumId;
 	}
@@ -33,8 +34,8 @@ public class TopicAction extends BaseAction<Topic>{
 		Topic topic = topicService.findById(model.getId());
 		ActionContext.getContext().put("topic", topic);
 		
-		List<Reply> replyList = replyService.findByTopic(topic);
-		ActionContext.getContext().put("replyList", replyList);
+		PageBean pageBean = replyService.getPageBeanByTopic(pageNum,pageSize,topic);
+		ActionContext.getContext().getValueStack().push(pageBean);
 		return "show";
 	}
 	

@@ -111,5 +111,24 @@ public abstract class BaseAction<T> extends ActionSupport implements ModelDriven
 	public User getCurrentUser() {
 		return (User)ActionContext.getContext().getSession().get("user");
 	}
+	
+	//分页所需传入的参数
+	protected int pageNum = 1;
+	protected int pageSize = 10;
+	
+	public int getPageNum() {
+		return pageNum;
+	}
 
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
 }

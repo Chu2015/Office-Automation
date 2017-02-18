@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cpc.oa.base.DaoSupportImpl;
 import com.cpc.oa.domain.Forum;
+import com.cpc.oa.domain.PageBean;
 import com.cpc.oa.domain.Reply;
 import com.cpc.oa.domain.Topic;
 import com.cpc.oa.service.ReplyService;
@@ -37,6 +38,18 @@ public class ReplyServiceImpl extends DaoSupportImpl<Reply> implements ReplyServ
 		
 		getSession().update(forum);
 		getSession().update(topic);
+	}
+
+	@Override
+	public PageBean getPageBeanByTopic(int pageNum, int pageSize, Topic topic) {
+		List<Reply> replyList = getSession().createQuery("from Reply r where r.topic=? order by postTime asc")
+								.setParameter(0, topic)
+								.setFirstResult((pageNum-1)*pageSize)
+								.setMaxResults(pageSize)
+								.list();
+		Long pageCount = (Long) getSession().createQuery("select count(*) from Reply r where r.topic=? order by postTime asc")
+				.setParameter(0, topic).uniqueResult();
+		return new PageBean(replyList, pageNum, pageCount.intValue(), pageSize);
 	}
 	
 	
