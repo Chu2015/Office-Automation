@@ -28,6 +28,7 @@
     </div>
 </div>
 
+<s:form action="topic_show?id=%{id}">
 <!--内容显示-->	
 <div id="MainArea">
 	<div id="PageHead"></div>
@@ -169,15 +170,11 @@
 			</s:iterator>
 			<!-- ~~~~~~~~~~~~~~~ 显示回复列表结束 ~~~~~~~~~~~~~~~ -->
 		</div>
-
+</s:form>
 		<!--分页信息-->
 <%@include file="/WEB-INF/jsp/public/pageView.jspf" %>
 
-<script type="text/javascript">
-	function gotoPage(pageNum){
-		window.location.href = "topic_show.action?id=${id}&pageNum=" + pageNum;
-	}
-</script>
+
 		<div class="ForumPageTableBorder" style="margin-top: 25px;">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr valign="bottom">

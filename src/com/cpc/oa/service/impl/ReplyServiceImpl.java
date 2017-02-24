@@ -40,6 +40,7 @@ public class ReplyServiceImpl extends DaoSupportImpl<Reply> implements ReplyServ
 		getSession().update(topic);
 	}
 
+	@Deprecated
 	@Override
 	public PageBean getPageBeanByTopic(int pageNum, int pageSize, Topic topic) {
 		List<Reply> replyList = getSession().createQuery("from Reply r where r.topic=? order by postTime asc")

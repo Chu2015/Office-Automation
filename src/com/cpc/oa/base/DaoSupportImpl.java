@@ -7,12 +7,15 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.persistence.Query;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cpc.oa.domain.PageBean;
+import com.cpc.oa.domain.Reply;
+
+import org.hibernate.Query;
 @Transactional
 @SuppressWarnings("unchecked")
 public abstract class DaoSupportImpl<T> implements DaoSupport<T>{
@@ -84,5 +87,29 @@ public abstract class DaoSupportImpl<T> implements DaoSupport<T>{
 	public List<T> findAll() {
 		return getSession().createQuery("from "+clazz.getSimpleName()).list();
 	}
+	
+	@Override
+	public PageBean getPageBean(int pageNum, int pageSize, String hql,
+			List<Object> parameters) {
+		Query query =  getSession().createQuery(hql);
+		if(parameters !=null){
+			for(int i=0;i<parameters.size();i++){
+				query.setParameter(i, parameters.get(i));
+			}
+		}
+		
+		 query = query.setFirstResult((pageNum-1)*pageSize);
+		 query = query.setMaxResults(pageSize);
+		 List<Object> recordList =  query.list();
+		
+		 Query query2 =  getSession().createQuery("select count(*)"+hql);
+			if(parameters !=null){
+				for(int i=0;i<parameters.size();i++){
+					query2.setParameter(i, parameters.get(i));
+				}
+			}
 
+		 Long pageCount = (Long) query2.uniqueResult();
+		 return new PageBean( recordList, pageNum, pageCount.intValue(), pageSize);
+	}
 }

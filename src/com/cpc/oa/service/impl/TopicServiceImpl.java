@@ -17,7 +17,7 @@ import com.cpc.oa.service.TopicService;
 public class TopicServiceImpl extends DaoSupportImpl<Topic> implements TopicService{
 
 	//如何排序？？
-	@Override
+	@Deprecated
 	public List<Topic> findByForum(Forum forum) {
 		return getSession().createQuery("from Topic t where t.forum=? order by(case t.type when 2 then 2 else 0 end) DESC , t.lastUpdateTime DESC").setParameter(0, forum).list();
 	}
@@ -40,15 +40,17 @@ public class TopicServiceImpl extends DaoSupportImpl<Topic> implements TopicServ
 		
 	}
 
+	@Deprecated
 	@Override
 	public PageBean getPageBeanByForum(int pageNum, int pageSize, Forum forum) {
-		List<Topic> topicList = getSession().createQuery("from Topic t where t.forum=? order by postTime asc")
+		List<Topic> topicList = getSession().createQuery("from Topic t where t.forum=? order by(case t.type when 2 then 2 else 0 end) DESC , t.lastUpdateTime DESC")
 				.setParameter(0, forum)
 				.setFirstResult((pageNum-1)*pageSize)
 				.setMaxResults(pageSize)
 				.list();
-		Long pageCount = (Long) getSession().createQuery("select count(*) from Topic t where t.forum=? order by postTime asc")
-				.setParameter(0, forum).uniqueResult();
+		Long pageCount = (Long) getSession().createQuery("select count(*) from Topic t where t.forum=? order by(case t.type when 2 then 2 else 0 end) DESC , t.lastUpdateTime DESC")
+				.setParameter(0, forum)
+				.uniqueResult();
 		return new PageBean(topicList, pageNum, pageCount.intValue(), pageSize);
 	}
 	

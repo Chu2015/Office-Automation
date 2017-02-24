@@ -2,6 +2,9 @@ package com.cpc.oa.base;
 
 import java.util.List;
 
+import com.cpc.oa.domain.PageBean;
+import com.cpc.oa.domain.Topic;
+
 
 public interface DaoSupport<T> {
 	
@@ -17,4 +20,5 @@ public interface DaoSupport<T> {
 	
 	public List<T> findAll();
 
+	PageBean getPageBean(int pageNum, int pageSize,String hql, List<Object> parameters);  
 }

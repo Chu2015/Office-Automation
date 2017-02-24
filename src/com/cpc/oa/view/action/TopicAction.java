@@ -1,5 +1,6 @@
 package com.cpc.oa.view.action;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,8 +34,14 @@ public class TopicAction extends BaseAction<Topic>{
 	public String show(){
 		Topic topic = topicService.findById(model.getId());
 		ActionContext.getContext().put("topic", topic);
-		
-		PageBean pageBean = replyService.getPageBeanByTopic(pageNum,pageSize,topic);
+		//实现分页版本1
+//		PageBean pageBean = replyService.getPageBeanByTopic(pageNum,pageSize,topic);
+//		ActionContext.getContext().getValueStack().push(pageBean);
+		//实现分页版本2
+		List parameters = new ArrayList();
+		parameters.add(topic);
+		String hql = "from Reply r where r.topic=? order by postTime asc";
+		PageBean pageBean = replyService.getPageBean(pageNum, pageSize, hql, parameters);
 		ActionContext.getContext().getValueStack().push(pageBean);
 		return "show";
 	}

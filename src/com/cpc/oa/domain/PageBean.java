@@ -23,7 +23,7 @@ public class PageBean {
 			beginPageIndex = 1;
 			endPageIndex = pageCount;
 		}else{
-			if(currentPage<4){
+			if(currentPage<=4){
 				this.beginPageIndex = 1;
 				this.endPageIndex = 10;
 			}else if(currentPage>pageCount-5){

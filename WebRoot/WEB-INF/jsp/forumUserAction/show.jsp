@@ -33,6 +33,7 @@
     </div>
 </div>
 
+<s:form action="forumUser_show?id=%{id}">
 <div id="MainArea">
 	<div id="PageHead"></div>
 	<center>
@@ -107,25 +108,12 @@
 					<table border="0" cellspacing="0" cellpadding="0" height="100%" align="left">
 						<tr valign=bottom>
 							<td></td>
-							<td><select name="viewType">
-									<option value="0">全部主题</option>
-									<option value="1">全部精华贴</option>
-									<!--
-									<option value="2">当天的主题</option>
-									<option value="3">本周的主题</option>
-									<option value="4">本月的主题</option>
-									-->
-								</select>
-								<select name="orderBy" onchange="onSortByChange(this.value)">
-									<option value="0">默认排序(所有置顶帖在前面，并按最后更新时间降序排列)</option>
-									<option value="1">只按最后更新时间排序</option>
-									<option value="2">只按主题发表时间排序</option>
-									<option value="3">只按回复数量排序</option>
-								</select>
-								<select name="asc">
-									<option value="false">降序</option>
-									<option value="true">升序</option>
-								</select>
+							<td><s:select name="viewType" list="#{0:'全部主题',1:'全部精华贴'}">
+								</s:select>
+								<s:select name="orderBy" onchange="onSortByChange(this.value)" list="#{0:'默认排序(所有置顶帖在前面，并按最后更新时间降序排列)',1:'只按最后更新时间排序',2:'只按主题发表时间排序',3:'只按回复数量排序'}">
+								</s:select>
+								<s:select name="asc" list="#{false:'降序',true:'升序'}">
+								</s:select>
 								<input type="IMAGE" src="${pageContext.request.contextPath}/style/blue/images/button/submit.PNG" align="ABSMIDDLE"/>
 							</td>
 						</tr>
@@ -136,14 +124,9 @@
 		</div>
 	</center>
 </div>
-
+</s:form>
 <!--分页信息-->
 <%@include file="/WEB-INF/jsp/public/pageView.jspf" %>
-<script type="text/javascript">
-	function gotoPage(pageNum){
-		window.location.href = "forumUser_show.action?id=${id}&pageNum=" + pageNum;
-	}
-</script>
 
 <div class="Description">
 	说明：<br />
