@@ -13,6 +13,7 @@ import com.cpc.oa.domain.Department;
 import com.cpc.oa.domain.Role;
 import com.cpc.oa.domain.User;
 import com.cpc.oa.util.DepartmentTreeList;
+import com.cpc.oa.util.QueryHelper;
 import com.opensymphony.xwork2.ActionContext;
 
 @Controller
@@ -43,8 +44,10 @@ public class UserAction extends BaseAction<User>{
 	 * action的方法
 	 */
 	public String list(){
-		List<User> userList = userService.findAll();
-		ActionContext.getContext().put("userList", userList);
+//		List<User> userList = userService.findAll();
+//		ActionContext.getContext().put("userList", userList);
+		new QueryHelper(User.class,"u")
+		.preparePageBean(userService, pageNum, pageSize);
 		return "list";
 	}
 	

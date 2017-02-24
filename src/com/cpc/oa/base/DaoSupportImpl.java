@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cpc.oa.domain.PageBean;
 import com.cpc.oa.domain.Reply;
+import com.cpc.oa.util.QueryHelper;
 
 import org.hibernate.Query;
 @Transactional
@@ -88,6 +89,7 @@ public abstract class DaoSupportImpl<T> implements DaoSupport<T>{
 		return getSession().createQuery("from "+clazz.getSimpleName()).list();
 	}
 	
+	@Deprecated
 	@Override
 	public PageBean getPageBean(int pageNum, int pageSize, String hql,
 			List<Object> parameters) {
@@ -110,6 +112,32 @@ public abstract class DaoSupportImpl<T> implements DaoSupport<T>{
 			}
 
 		 Long pageCount = (Long) query2.uniqueResult();
+		 return new PageBean( recordList, pageNum, pageCount.intValue(), pageSize);
+	}
+
+	@Override
+	public PageBean getPageBean(int pageNum, int pageSize,
+			QueryHelper queryHelper) {
+		Query listQuery =  getSession().createQuery(queryHelper.getListQueryHql());
+		List<Object> parameters = queryHelper.getParameters();
+		if(parameters !=null){
+			for(int i=0;i<parameters.size();i++){
+				listQuery.setParameter(i, parameters.get(i));
+			}
+		}
+		
+		listQuery = listQuery.setFirstResult((pageNum-1)*pageSize);
+		listQuery = listQuery.setMaxResults(pageSize);
+		List<Object> recordList =  listQuery.list();
+		
+		 Query countQurey =  getSession().createQuery(queryHelper.getCountQueryHql());
+			if(parameters !=null){
+				for(int i=0;i<parameters.size();i++){
+					countQurey.setParameter(i, parameters.get(i));
+				}
+			}
+
+		 Long pageCount = (Long) countQurey.uniqueResult();
 		 return new PageBean( recordList, pageNum, pageCount.intValue(), pageSize);
 	}
 }

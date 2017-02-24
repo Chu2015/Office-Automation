@@ -10,6 +10,7 @@ import com.cpc.oa.base.BaseAction;
 import com.cpc.oa.domain.Forum;
 import com.cpc.oa.domain.PageBean;
 import com.cpc.oa.domain.Topic;
+import com.cpc.oa.util.QueryHelper;
 import com.opensymphony.xwork2.ActionContext;
 
 @Controller
@@ -77,25 +78,33 @@ public class ForumUserAction extends BaseAction<Forum>{
 //		ActionContext.getContext().getValueStack().push(pageBean);
 //		return "show";
 		//实现分页版本3
-		List parameters = new ArrayList();
-		String hql = " from Topic t where t.forum=? ";
-		parameters.add(forum);
-		if( viewType == 1 ){
-			hql = hql+" and t.type = ? ";
-			parameters.add(Topic.TYPE_BEST);
-		}
-		if(orderBy==1){
-			hql += " order by t.lastUpdateTime " + (asc ? "ASC" : "DESC"); 
-		}else if (orderBy==2){
-			hql += " order by t.postTime " + (asc ? "ASC" : "DESC"); 
-		}else if(orderBy==3){
-			hql += " order by t.replyCount " + (asc ? "ASC" : "DESC"); 
-		}else{
-			hql += " order by(case t.type when 2 then 2 else 0 end) DESC , t.lastUpdateTime DESC";
-		}
+//		List parameters = new ArrayList();
+//		String hql = " from Topic t where t.forum=? ";
+//		parameters.add(forum);
+//		if( viewType == 1 ){
+//			hql = hql+" and t.type = ? ";
+//			parameters.add(Topic.TYPE_BEST);
+//		}
+//		if(orderBy==1){
+//			hql += " order by t.lastUpdateTime " + (asc ? "ASC" : "DESC"); 
+//		}else if (orderBy==2){
+//			hql += " order by t.postTime " + (asc ? "ASC" : "DESC"); 
+//		}else if(orderBy==3){
+//			hql += " order by t.replyCount " + (asc ? "ASC" : "DESC"); 
+//		}else{
+//			hql += " order by(case t.type when 2 then 2 else 0 end) DESC , t.lastUpdateTime DESC";
+//		}
+		//实现分页最终版
+		 new QueryHelper(Topic.class, "t")
+		.addCondition( "t.forum=?", forum)
+		.addCondition((viewType == 1), "t.type = ?", Topic.TYPE_BEST)
+		.addOderProperty((orderBy==1), "t.lastUpdateTime", asc)
+		.addOderProperty((orderBy==2), "t.postTime", asc)
+		.addOderProperty((orderBy==3), "t.replyCount", asc)
+		.addOderProperty((orderBy==0), "(case t.type when 2 then 2 else 0 end)", false)
+        .addOderProperty((orderBy==0), "t.lastUpdateTime", false)
+        .preparePageBean(topicService, pageNum, pageSize);
 		
-		PageBean pageBean = replyService.getPageBean(pageNum, pageSize, hql, parameters);
-		ActionContext.getContext().getValueStack().push(pageBean);
 		return "show";
 	}
 }

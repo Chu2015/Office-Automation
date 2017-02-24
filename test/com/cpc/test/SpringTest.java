@@ -19,7 +19,7 @@ public class SpringTest {
 	@Test
 	public void testTransaction(){
 		TestService testService = (TestService) ac.getBean("testService");
-		testService.saveUser();
+		testService.saveUser2();
 	}
 	
 }

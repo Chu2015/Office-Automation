@@ -14,6 +14,7 @@ import com.cpc.oa.domain.PageBean;
 import com.cpc.oa.domain.Reply;
 import com.cpc.oa.domain.Topic;
 import com.cpc.oa.domain.User;
+import com.cpc.oa.util.QueryHelper;
 import com.opensymphony.xwork2.ActionContext;
 
 @Controller
@@ -38,12 +39,18 @@ public class TopicAction extends BaseAction<Topic>{
 //		PageBean pageBean = replyService.getPageBeanByTopic(pageNum,pageSize,topic);
 //		ActionContext.getContext().getValueStack().push(pageBean);
 		//实现分页版本2
-		List parameters = new ArrayList();
-		parameters.add(topic);
-		String hql = "from Reply r where r.topic=? order by postTime asc";
-		PageBean pageBean = replyService.getPageBean(pageNum, pageSize, hql, parameters);
-		ActionContext.getContext().getValueStack().push(pageBean);
-		return "show";
+//		List parameters = new ArrayList();
+//		parameters.add(topic);
+//		String hql = "from Reply r where r.topic=? order by r.postTime asc";
+//		PageBean pageBean = replyService.getPageBean(pageNum, pageSize, hql, parameters);
+//		ActionContext.getContext().getValueStack().push(pageBean);
+		
+		//实现分页最终版
+		 new QueryHelper(Reply.class, "r")
+		.addCondition( "r.topic=?", topic)
+		.addOderProperty( "r.postTime", true)
+        .preparePageBean(replyService, pageNum, pageSize);
+	   	return "show";
 	}
 	
 	//添加新的帖子的页面
